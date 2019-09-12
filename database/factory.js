@@ -27,3 +27,14 @@ Factory.blueprint('App/Models/Business', (faker) => {
     business_type: 'pharmacy'
   }
 })
+
+
+Factory.blueprint('App/Models/User', (faker) => {
+  return {
+    first_name: faker.first(),
+    last_name: faker.last(),
+    email: faker.email(),
+    business_id: 1,
+    password: faker.password()
+  }
+})

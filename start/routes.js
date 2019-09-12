@@ -20,3 +20,10 @@ Route.on('/').render('welcome')
 Route
   .post('/api/business', 'BusinessController.store')
   .validator('StoreBusiness')
+
+Route
+  .post('/api/register', 'RegisterController.store')
+  .validator('RegisterUser')
+
+Route
+  .post('/api/login', 'LoginController.generate')
