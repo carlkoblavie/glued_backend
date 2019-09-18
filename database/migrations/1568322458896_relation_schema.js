@@ -15,8 +15,11 @@ class RelationSchema extends Schema {
       table.string('date_of_birth')
       table.string('gender')
       table.string('location')
+      table.integer('business_id').unsigned().notNullable()
       table.string('relation_type').notNullable()
       table.timestamps()
+
+      table.foreign('business_id').references('id').inTable('businesses')
     })
   }
 

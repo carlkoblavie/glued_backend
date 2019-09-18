@@ -1,6 +1,6 @@
 'use strict'
 
-class StoreBusiness {
+class AddBusiness {
   get rules () {
     return {
       name: 'required|string',
@@ -25,4 +25,4 @@ class StoreBusiness {
   }
 }
 
-module.exports = StoreBusiness
+module.exports = AddBusiness

@@ -19,11 +19,29 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 Route
   .post('/api/business', 'BusinessController.store')
-  .validator('StoreBusiness')
+  .validator('AddBusiness')
 
 Route
-  .post('/api/register', 'RegisterController.store')
-  .validator('RegisterUser')
+  .post('/api/user', 'UserController.store')
+  .validator('AddUser')
 
 Route
   .post('/api/login', 'LoginController.generate')
+
+Route
+  .post('/api/relation', 'RelationController.store')
+  .middleware('auth')
+  .validator('Relation')
+
+Route
+  .get('/api/all/relations/', 'RelationController.index')
+  .middleware('auth')
+
+Route
+  .put('/api/relations/:id', 'RelationController.update')
+  .validator('UpdateRelation')
+  .middleware('auth')
+
+Route
+  .delete('/api/relations/:id', 'RelationController.delete')
+  .middleware('auth')

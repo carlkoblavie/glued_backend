@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Register User')
+const { test, trait } = use('Test/Suite')('Add User')
 const Factory = use('Factory')
 const User = use('App/Models/User')
 
@@ -8,7 +8,11 @@ trait('Test/ApiClient')
 
 test('can register a new user with valid data, and generate jwt', async ({ assert, client }) => {
 
-  const { first_name, last_name, email, business_id, password } = await Factory
+  const { id: business_id } = await Factory
+    .model('App/Models/Business')
+    .create()
+
+  const { first_name, last_name, email, password } = await Factory
     .model('App/Models/User')
     .make()
 
@@ -21,7 +25,7 @@ test('can register a new user with valid data, and generate jwt', async ({ asser
   }
 
   const response = await client
-    .post('/api/register')
+    .post('/api/user')
     .send(data)
     .end()
 
@@ -52,7 +56,7 @@ test('returns an error if user already exists', async ({ assert, client }) => {
   }
 
   const response = await client
-    .post('/api/register')
+    .post('/api/user')
     .send(data)
     .end()
 
@@ -79,7 +83,7 @@ test('returns an error if first_name is not provided', async ({ assert, client }
   }
 
   const response = await client
-    .post('api/register')
+    .post('api/user')
     .send(data)
     .end()
 
@@ -106,7 +110,7 @@ test('returns an error if last_name is not provided', async ({ assert, client })
   }
 
   const response = await client
-    .post('api/register')
+    .post('api/user')
     .send(data)
     .end()
 

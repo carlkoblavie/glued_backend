@@ -34,7 +34,20 @@ Factory.blueprint('App/Models/User', (faker) => {
     first_name: faker.first(),
     last_name: faker.last(),
     email: faker.email(),
-    business_id: 1,
     password: faker.password()
+  }
+})
+
+Factory.blueprint('App/Models/Relation', (faker) => {
+  return {
+    title: 'Mr',
+    first_name: faker.first(),
+    last_name: faker.last(),
+    phone: faker.phone(),
+    email: faker.email(),
+    gender: 'female',
+    location: 'tema',
+    relation_type: 'business',
+    date_of_birth: null
   }
 })

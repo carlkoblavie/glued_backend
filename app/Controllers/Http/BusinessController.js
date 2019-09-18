@@ -3,10 +3,11 @@ const Business = use('App/Models/Business')
 
 class BusinessController {
   async store({ response, request }) {
-    const business = await Business.create(
-      request.only(['name', 'location', 'business_type'])
-    )
-    return response.created(business)
+    const business = await Business
+      .store(request)
+
+    return response
+      .created(business)
   }
 }
 

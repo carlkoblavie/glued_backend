@@ -1,9 +1,9 @@
 'use strict'
 
-class RegisterUser {
+class AddUser {
   get rules () {
     return {
-      email: 'unique:users',
+      email: 'unique:users|email',
       first_name: 'required|string',
       last_name: 'required|string',
       business_id: 'required|number'
@@ -15,7 +15,8 @@ class RegisterUser {
       unique: 'This {{ field }} has already been used',
       required: '{{ field }} is required',
       string: '{{ field }} needs to be a string',
-      number: '{{ field }} needs to be selected'
+      number: '{{ field }} needs to be selected',
+      email: 'Please provide a valid {{ field }}'
     }
   }
 
@@ -24,4 +25,4 @@ class RegisterUser {
   }
 }
 
-module.exports = RegisterUser
+module.exports = AddUser
