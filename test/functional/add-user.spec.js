@@ -7,7 +7,6 @@ const User = use('App/Models/User')
 trait('Test/ApiClient')
 
 test('can register a new user with valid data, and generate jwt', async ({ assert, client }) => {
-
   const { id: business_id } = await Factory
     .model('App/Models/Business')
     .create()
@@ -61,13 +60,11 @@ test('returns an error if user already exists', async ({ assert, client }) => {
     .end()
 
   response.assertStatus(400)
-  response.assertJSONSubset([
-		{
-			message: 'This email has already been used',
-			field: 'email',
-			validation: 'unique'
-		}
-	])
+  response.assertJSONSubset([{
+    message: 'This email has already been used',
+    field: 'email',
+    validation: 'unique'
+  }])
 })
 
 test('returns an error if first_name is not provided', async ({ assert, client }) => {
@@ -88,13 +85,11 @@ test('returns an error if first_name is not provided', async ({ assert, client }
     .end()
 
   response.assertStatus(400)
-  response.assertJSONSubset([
-    {
-			message: 'first_name is required',
-			field: 'first_name',
-			validation: 'required'
-		}
-  ])
+  response.assertJSONSubset([{
+    message: 'first_name is required',
+    field: 'first_name',
+    validation: 'required'
+  }])
 })
 
 test('returns an error if last_name is not provided', async ({ assert, client }) => {
@@ -115,11 +110,9 @@ test('returns an error if last_name is not provided', async ({ assert, client })
     .end()
 
   response.assertStatus(400)
-  response.assertJSONSubset([
-    {
-			message: 'last_name is required',
-			field: 'last_name',
-			validation: 'required'
-		}
-  ])
+  response.assertJSONSubset([{
+    message: 'last_name is required',
+    field: 'last_name',
+    validation: 'required'
+  }])
 })

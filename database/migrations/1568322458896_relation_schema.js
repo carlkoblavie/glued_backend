@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class RelationSchema extends Schema {
   up () {
-    this.create('relations', (table) => {
+    this.create('customers', (table) => {
       table.increments()
       table.string('title').notNullable()
       table.string('first_name').notNullable()
@@ -16,7 +16,7 @@ class RelationSchema extends Schema {
       table.string('gender')
       table.string('location')
       table.integer('business_id').unsigned().notNullable()
-      table.string('relation_type').notNullable()
+      table.string('customer_type').notNullable()
       table.timestamps()
 
       table.foreign('business_id').references('id').inTable('businesses')
@@ -24,7 +24,7 @@ class RelationSchema extends Schema {
   }
 
   down () {
-    this.drop('relations')
+    this.drop('customers')
   }
 }
 

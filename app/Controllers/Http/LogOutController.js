@@ -1,8 +1,8 @@
 'use strict'
 
 class LogOutController {
-  await logout ({ auth }) {
-    auth.logout()
+  async logout ({ auth }) {
+    await auth.logout()
   }
 }
 

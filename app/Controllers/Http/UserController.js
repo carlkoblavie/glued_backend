@@ -2,7 +2,7 @@
 const User = use('App/Models/User')
 
 class UserController {
-  async store({ auth, request, response }) {
+  async store ({ auth, request, response }) {
     const { user, token } = await User
       .store(request, auth)
 

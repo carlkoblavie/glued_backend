@@ -28,7 +28,6 @@ Factory.blueprint('App/Models/Business', (faker) => {
   }
 })
 
-
 Factory.blueprint('App/Models/User', (faker) => {
   return {
     first_name: faker.first(),
@@ -38,7 +37,7 @@ Factory.blueprint('App/Models/User', (faker) => {
   }
 })
 
-Factory.blueprint('App/Models/Relation', (faker) => {
+Factory.blueprint('App/Models/Customer', (faker) => {
   return {
     title: 'Mr',
     first_name: faker.first(),
@@ -47,7 +46,15 @@ Factory.blueprint('App/Models/Relation', (faker) => {
     email: faker.email(),
     gender: 'female',
     location: 'tema',
-    relation_type: 'business',
+    customer_type: 'pharmacy',
     date_of_birth: null
+  }
+})
+
+Factory.blueprint('App/Models/Sale', (faker) => {
+  return {
+    item: faker.word(),
+    date: '2019/01/01',
+    price: 100
   }
 })

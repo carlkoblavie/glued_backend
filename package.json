@@ -32,8 +32,13 @@
     "mysql2": "^1.7.0",
     "node-exceptions": "^4.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
   "autoload": {
     "App": "./app"
+  },
+  "standard": {
+    "globals": [ "use" ]
   }
 }

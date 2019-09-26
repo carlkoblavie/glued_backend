@@ -1,17 +1,16 @@
 'use strict'
 
-class Relation {
+class Customer {
   get rules () {
     return {
       first_name: 'required|string',
       last_name: 'required|string',
       title: 'string',
-      last_name: 'required|string',
       phone: 'required',
-      email: 'required|email|unique:relations',
+      email: 'required|email|unique:customers',
       gender: 'required|string',
       location: 'string',
-      relation_type: 'required|string',
+      customer_type: 'required|string',
       date_of_birth: 'date'
     }
   }
@@ -26,9 +25,8 @@ class Relation {
     }
   }
 
-  async fails(errorMessages) {
+  async fails (errorMessages) {
     return this.ctx.response.status(400).json(errorMessages)
   }
 }
-
-module.exports = Relation
+module.exports = Customer

@@ -1,11 +1,11 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Delete Relation')
+const { test, trait } = use('Test/Suite')('Delete Customer')
 const Factory = use('Factory')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
-test('can delete a relation that belongs to the business', async ({ assert, client }) => {
+test('can delete a customer that belongs to the business', async ({ assert, client }) => {
   const business = await Factory
     .model('App/Models/Business')
     .create()
@@ -23,23 +23,23 @@ test('can delete a relation that belongs to the business', async ({ assert, clie
       email: user.email
     })
 
-  const relation = await Factory
-    .model('App/Models/Relation')
+  const customer = await Factory
+    .model('App/Models/Customer')
     .make()
 
   await business
-    .relations()
-    .save(relation)
+    .customers()
+    .save(customer)
 
   const response = await client
-    .delete(`/api/relations/${relation.id}`)
+    .delete(`/api/customers/${customer.id}`)
     .loginVia(newUser)
     .end()
 
   response.assertStatus(204)
 })
 
-test('cannot delete a relation that does not belong to the business', async ({ assert, client }) => {
+test('cannot delete a customer that does not belong to the business', async ({ assert, client }) => {
   const business = await Factory
     .model('App/Models/Business')
     .create()
@@ -48,7 +48,7 @@ test('cannot delete a relation that does not belong to the business', async ({ a
     .model('App/Models/User')
     .make()
 
-  const newUser = await business
+  await business
     .users()
     .create({
       first_name: user.first_name,
@@ -57,13 +57,13 @@ test('cannot delete a relation that does not belong to the business', async ({ a
       email: user.email
     })
 
-  const relation = await Factory
-    .model('App/Models/Relation')
+  const customer = await Factory
+    .model('App/Models/Customer')
     .make()
 
   await business
-    .relations()
-    .save(relation)
+    .customers()
+    .save(customer)
 
   const anotherBusiness = await Factory
     .model('App/Models/Business')
@@ -82,21 +82,21 @@ test('cannot delete a relation that does not belong to the business', async ({ a
       email: anotherUser.email
     })
 
-  const anotherRelation = await Factory
-      .model('App/Models/Relation')
-      .make()
+  const anotherCustomer = await Factory
+    .model('App/Models/Customer')
+    .make()
 
   await anotherBusiness
-    .relations()
-    .save(anotherRelation)
+    .customers()
+    .save(anotherCustomer)
 
   const response = await client
-    .delete(`/api/relations/${relation.id}`)
+    .delete(`/api/customers/${customer.id}`)
     .loginVia(anotherNewUser)
     .end()
 
   response.assertStatus(401)
-  const _relation= await use('App/Models/Relation').find(relation.id)
+  const _customer = await use('App/Models/Customer').find(customer.id)
 
-  assert.isNotNull(_relation)
+  assert.isNotNull(_customer)
 })

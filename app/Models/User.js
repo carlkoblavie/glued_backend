@@ -32,19 +32,20 @@ class User extends Model {
    * @return {Object}
    */
 
-   static async store (request, auth) {
-     const { first_name, last_name, email, business_id, password } = request.all()
-     const user = await this
-       .create({ first_name, last_name, email, business_id, password })
+  static async store (request, auth) {
+    const { first_name, last_name, email, business_id, password } = request.all()
+    const user = await this
+      .create({ first_name, last_name, email, business_id, password })
 
-     const token = await auth
-       .generate(user)
+    const token = await auth
+      .generate(user)
 
-    return { user, token}
-   }
-   business () {
-     return this.belongsTo('App/Models/Business')
-   }
+    return { user, token }
+  }
+
+  business () {
+    return this.belongsTo('App/Models/Business')
+  }
 
   tokens () {
     return this.hasMany('App/Models/Token')

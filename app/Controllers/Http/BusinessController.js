@@ -2,7 +2,7 @@
 const Business = use('App/Models/Business')
 
 class BusinessController {
-  async store({ response, request }) {
+  async store ({ response, request }) {
     const business = await Business
       .store(request)
 

@@ -29,19 +29,23 @@ Route
   .post('/api/login', 'LoginController.generate')
 
 Route
-  .post('/api/relation', 'RelationController.store')
+  .post('/api/customer', 'CustomerController.store')
   .middleware('auth')
-  .validator('Relation')
+  .validator('Customer')
 
 Route
-  .get('/api/all/relations/', 'RelationController.index')
-  .middleware('auth')
-
-Route
-  .put('/api/relations/:id', 'RelationController.update')
-  .validator('UpdateRelation')
+  .get('/api/all/customers/', 'CustomerController.index')
   .middleware('auth')
 
 Route
-  .delete('/api/relations/:id', 'RelationController.delete')
+  .put('/api/customers/:id', 'CustomerController.update')
+  .validator('UpdateCustomer')
+  .middleware('auth')
+
+Route
+  .delete('/api/customers/:id', 'CustomerController.delete')
+  .middleware('auth')
+
+Route
+  .post('/api/sale', 'SaleController.store')
   .middleware('auth')
