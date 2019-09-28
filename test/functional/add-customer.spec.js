@@ -1,6 +1,5 @@
 'use strict'
 
-
 const { test, trait } = use('Test/Suite')('Add Customer')
 const Factory = use('Factory')
 

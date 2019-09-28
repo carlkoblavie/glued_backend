@@ -1,10 +1,8 @@
 'use strict'
 const Customer = use('App/Models/Customer')
-class CustomerController {
-  constructor () {
-    this.userNotAuthorised = this.userNotAuthorised.bind(this)
-  }
+const UnauthorizedException = use('App/Exceptions/UnauthorizedException')
 
+class CustomerController {
   async store ({ auth, request, response }) {
     const customer = await Customer.store(request, auth)
     return response.created(customer)
@@ -17,26 +15,19 @@ class CustomerController {
 
   async update ({ auth, request, response, params }) {
     if (await Customer.isNotAuthorised(auth, params.id)) {
-      return this.userNotAuthorised(response)
+      throw new UnauthorizedException()
     }
+
     const updatedCustomer = await Customer.update(request, params.id)
     return response.ok(updatedCustomer)
   }
 
   async delete ({ auth, request, response, params }) {
     if (await Customer.isNotAuthorised(auth, params.id)) {
-      return this.userNotAuthorised(response)
+      throw new UnauthorizedException()
     }
-
     await Customer.delete(params.id)
-
     return response.noContent()
-  }
-
-  userNotAuthorised (response) {
-    response
-      .status(401)
-      .send('Not authorized')
   }
 }
 

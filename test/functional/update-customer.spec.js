@@ -34,7 +34,6 @@ test('can update a customer', async ({ assert, client }) => {
   const data = {
     first_name: 'NewFirstName',
     title: customer.title,
-    first_name: customer.first_name,
     last_name: customer.last_name,
     phone: customer.phone,
     email: customer.email,

@@ -72,12 +72,16 @@ class Customer extends Model {
   }
 
   static async delete (customerId) {
-    const customer = await this.find(customerId)
+    const customer = await this.findOrFail(customerId)
     customer.delete()
   }
 
   business () {
     return this.belongsTo('App/Models/Business')
+  }
+
+  sales () {
+    return this.hasMany('App/Models/Sale')
   }
 }
 

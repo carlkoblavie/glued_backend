@@ -9,18 +9,18 @@ class AddBusiness {
     }
   }
 
-  get messages() {
+  get messages () {
     return {
       required: '{{ field }} is required',
       string: '{{ field }} is not valid'
     }
   }
 
-  get validateAll() {
+  get validateAll () {
     return true
   }
 
-  async fails(errorMessages) {
+  async fails (errorMessages) {
     return this.ctx.response.status(400).json(errorMessages)
   }
 }

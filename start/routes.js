@@ -47,5 +47,21 @@ Route
   .middleware('auth')
 
 Route
-  .post('/api/sale', 'SaleController.store')
+  .post('/api/sales', 'SaleController.store')
   .middleware('auth')
+  .validator('Sale')
+
+Route
+  .delete('api/sales/:id', 'SaleController.delete')
+  .middleware('auth')
+
+Route
+  .put('/api/sales/:id', 'SaleController.update')
+  .middleware('auth')
+  .validator('UpdateSale')
+
+Route
+  .get('/api/all/sales', 'SaleController.index')
+
+Route
+  .get('/api/sales/:id', 'SaleController.show')

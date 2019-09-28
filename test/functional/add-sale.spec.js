@@ -25,31 +25,25 @@ test('can add a new sale', async ({ assert, client }) => {
 
   const newCustomer = await business
     .customers()
-    .create({
-      title: customer.title,
-      first_name: customer.first_name,
-      last_name: customer.last_name,
-      phone: customer.phone,
-      email: customer.email,
-      gender: customer.gender,
-      customer_type: customer.customer_type,
-      location: customer.location
-    })
+    .create(customer.$attributes)
 
-  const { item, date, price } = await Factory
+  const { item, price, date } = await Factory
     .model('App/Models/Sale')
     .make()
 
   const response = await client
-    .post('/api/sale')
+    .post('/api/sales')
     .loginVia(newUser)
-    .send({ item, date, price, customer_id: newCustomer.id })
+    .send({ item, price, date, customer_id: newCustomer.id, business_id: business.id })
     .end()
 
+  console.log(response.error)
   response.assertStatus(201)
   response.assertJSONSubset({
     item,
+    price,
     date,
-    price
+    customer_id: newCustomer.id,
+    business_id: business.id
   })
 })
