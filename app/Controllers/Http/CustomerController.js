@@ -29,6 +29,22 @@ class CustomerController {
     await Customer.delete(params.id)
     return response.noContent()
   }
+
+  async search ({ auth, request, response, params }) {
+    const keyword = params.keyword
+    if (keyword) {
+      const user = await auth.getUser()
+      const business = await user.business().fetch()
+
+      const customers = await Customer
+        .query()
+        .byKeyword(keyword)
+        .where('business_id', business.id)
+        .fetch()
+
+      return response.ok(customers)
+    }
+  }
 }
 
 module.exports = CustomerController

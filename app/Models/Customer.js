@@ -71,6 +71,14 @@ class Customer extends Model {
     return customer
   }
 
+  static scopeByKeyword (query, keyword) {
+    keyword = `%${keyword}%`
+
+    return query
+      .where('first_name', 'like', keyword)
+      .orWhere('last_name', 'like', keyword)
+  }
+
   static async delete (customerId) {
     const customer = await this.findOrFail(customerId)
     customer.delete()
@@ -82,6 +90,10 @@ class Customer extends Model {
 
   sales () {
     return this.hasMany('App/Models/Sale')
+  }
+
+  appointments () {
+    return this.hasMany('App/Models/Appointment')
   }
 }
 

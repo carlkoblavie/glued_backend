@@ -1,12 +1,12 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Add Sale')
+const { test, trait } = use('Test/Suite')('Update Appointment')
 const Factory = use('Factory')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
 
-test('can add a new sale', async ({ assert, client }) => {
+test('can update an appointment', async ({ assert, client }) => {
   const business = await Factory
     .model('App/Models/Business')
     .create()
@@ -27,23 +27,33 @@ test('can add a new sale', async ({ assert, client }) => {
     .customers()
     .create(customer.$attributes)
 
-  const { item, price, date } = await Factory
-    .model('App/Models/Sale')
+  const { appointment_type, due_date } = await Factory
+    .model('App/Models/Appointment')
     .make()
 
+  const appointment = await business
+    .appointments()
+    .create({
+      appointment_type,
+      due_date,
+      customer_id: newCustomer.id
+    })
+
+  const newDueDate = '2019-11-11 14:18:15'
+
+  const data = {
+    due_date: newDueDate,
+    customer_id: newCustomer.id
+  }
+
   const response = await client
-    .post('/api/sales')
+    .put(`/api/appointments/update/${appointment.id}`)
     .loginVia(newUser)
-    .send({ item, price, date, customer_id: newCustomer.id, business_id: business.id })
+    .send(data)
     .end()
 
-  console.log(response.error)
-  response.assertStatus(201)
+  response.assertStatus(200)
   response.assertJSONSubset({
-    item,
-    price,
-    date,
-    customer_id: newCustomer.id,
-    business_id: business.id
+    due_date: newDueDate
   })
 })

@@ -38,6 +38,10 @@ Route
   .middleware('auth')
 
 Route
+  .get('/api/customer/search/:keyword', 'CustomerController.search')
+  .middleware('auth')
+
+Route
   .put('/api/customers/:id', 'CustomerController.update')
   .validator('UpdateCustomer')
   .middleware('auth')
@@ -65,3 +69,26 @@ Route
 
 Route
   .get('/api/sales/:id', 'SaleController.show')
+
+Route
+  .post('/api/appointments', 'AppointmentController.store')
+  .middleware('auth')
+  .validator('AddAppointment')
+
+Route
+  .put('/api/appointments/cancel/:id', 'AppointmentController.cancel')
+  .middleware('auth')
+Route
+  .put('/api/appointments/update/:id', 'AppointmentController.update')
+  .middleware('auth')
+
+Route
+  .get('/api/appointments/date/:date', 'AppointmentController.byDate')
+  .middleware('auth')
+Route
+  .get('/api/appointments/customer/:customer_id', 'AppointmentController.forCustomer')
+  .middleware('auth')
+
+Route
+  .get('/api/appointments', 'AppointmentController.index')
+  .middleware('auth')

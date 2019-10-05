@@ -22,6 +22,10 @@ class Business extends Model {
   sales () {
     return this.hasMany('App/Models/Sale')
   }
+
+  appointments () {
+    return this.hasMany('App/Models/Appointment')
+  }
 }
 
 module.exports = Business

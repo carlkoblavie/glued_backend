@@ -12,8 +12,11 @@ class SaleController {
     if (await Sale.actionNotAuthorised(auth, params.id)) {
       throw new UnauthorizedException()
     }
-    const sale = await Sale.show(params.id)
-    return response.ok(sale)
+    const saleId = params.id
+    if (saleId) {
+      const sale = await Sale.show(saleId)
+      return response.ok(sale)
+    }
   }
 
   async store ({ auth, request, response }) {

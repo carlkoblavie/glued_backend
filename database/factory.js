@@ -58,3 +58,10 @@ Factory.blueprint('App/Models/Sale', (faker) => {
     price: 100
   }
 })
+
+Factory.blueprint('App/Models/Appointment', (faker) => {
+  return {
+    appointment_type: faker.word(),
+    due_date: '2019/12/12'
+  }
+})
